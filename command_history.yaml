@@ -1,0 +1,7 @@
+- command: C:\Users\Bhava\miniconda3\envs\mfa-test\Scripts\mfa align C:\Users\Bhava\OneDrive\Desktop\mfa_data\corpus
+    english_us_arpa english_us_arpa C:\Users\Bhava\OneDrive\Desktop\mfa_data\aligned_output
+  date: 2025-11-07 16:59:19.807478
+  exception: ''
+  execution_time: 160.6931130886078
+  exit_code: 0
+  version: 3.3.8
