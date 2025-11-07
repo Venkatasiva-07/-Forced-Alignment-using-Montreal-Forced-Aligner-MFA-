@@ -1,170 +1,144 @@
-# -Forced-Alignment-using-Montreal-Forced-Aligner-MFA-
- forced alignment pipeline using the Montreal Forced  Aligner (MFA) tool
+Forced Alignment using Montreal Forced Aligner (MFA)
+A complete, beginner-friendly pipeline to perform forced alignment between audio and text using the Montreal Forced Aligner (MFA). This guide walks you through installation, dataset preparation, model download, alignment, and result visualization — all explained in simple words, no code blocks, just clear steps.
 
-This repository provides step-by-step instructions to install the **Montreal Forced Aligner (MFA)**, prepare your dataset, and run audio-text alignments. It includes example commands and expected outputs to help you get started quickly with speech alignment projects.
+TABLE OF CONTENTS
 
+Prerequisites
+Installation
+Downloading MFA Models
+Preparing Your Dataset
+Running Alignment
+Example Commands & Expected Output
+Viewing Results in Praat
+Common Issues & Fixes
+Demo & Screenshots
 
+Prerequisites
 
-## TABLE OF CONTENTS
-1.Prerequisites
-
-2.Installation
-
-3.Downloading MFA Models
-
-4.Preparing Your Dataset
-
-5.Running Alignment
-
-6.Example Commands
-## Prerequisites
 Operating System: Windows, macOS, or Linux
+Python version: 3.8 to 3.11
+Miniconda or Anaconda already installed on your computer
+Optional: ffmpeg (only if your audio is in MP3, M4A, etc. — MFA needs .wav files)
 
-Python: 3.8–3.11
-
-Miniconda/Anaconda installed
-
-Optional:
-
-ffmpeg if you have audio in formats other than .wav.
-## Installation
-1.Open terminal or Command Prompt
-
-2.Activate base conda environment
-
-   C:\Users\YourName> miniconda3\Scripts\activate
-
-3.Create a new conda environment
-
-   (base) C:\Users\YourName> conda create -n mfa-test python=3.11
+Installation
 
 
-4.Activate the environment
-
-   (base) C:\Users\YourName> conda activate mfa-test
-   (mfa-test) C:\Users\YourName>
+Open Command Prompt (Windows) or Terminal (Mac/Linux)
 
 
-5.Install Montreal Forced Aligner from conda-forge
-
-  (mfa-test) C:\Users\YourName> conda install -c conda-forge    montreal-forced-aligner
-
-
-6.Check MFA version
-
-  (mfa-test) C:\Users\YourName> mfa version
-  
- Example output:
-3.3.8
-## Downloading MFA Models
-1.List available acoustic models
-
-(mfa-test) C:\Users\YourName> mfa model download acoustic
+Type the following commands one by one and press Enter after each:
+miniconda3\Scripts\activate
+conda create -n mfa-test python=3.11
+conda activate mfa-test
+conda install -c conda-forge montreal-forced-aligner
+mfa version
+You should see something like: 3.3.8 (or newer) — that means MFA is installed successfully!
 
 
-2.Download a specific acoustic model
+Downloading MFA Models
+MFA needs two things to understand English speech:
 
-(mfa-test) C:\Users\YourName> mfa model download acoustic english_us_arpa
+An acoustic model (how actually pronounce sounds)
+A dictionary (how words are broken into sounds)
 
-
-3.List available dictionary models
-
-(mfa-test) C:\Users\YourName> mfa model download dictionary
-
-
-4.Download a specific dictionary
-
-(mfa-test) C:\Users\YourName> mfa model download dictionary english_us_arpa
-
-
-5.Check installed models
-
-(mfa-test) C:\Users\YourName> mfa model list acoustic
-
-Example output:
-['english_us_arpa']
-
-(mfa-test) C:\Users\YourName> mfa model list dictionary
-
-Example output:
-['english_us_arpa']
-
-## Preparing Your Dataset
-MFA expects a dataset organized like this:
-
+Run these commands:
+mfa model download acoustic english_us_arpa
+mfa model download dictionary english_us_arpa
+To confirm they downloaded correctly:
+mfa model list acoustic
+→ You should see: english_us_arpa
+mfa model list dictionary
+→ You should see: english_us_arpa
+That’s it — models are ready!
+Preparing Your Dataset
+Your folder must look exactly like this:
 dataset/
 ├── wavs/
-│   ├── file1.wav
-│   ├── file2.wav
-│   └── ...
+│   ├── speech1.wav
+│   ├── speech2.wav
+│   └── speech3.wav
 └── texts/
-    ├── file1.txt
-    ├── file2.txt
-    └── ...
+├── speech1.txt
+├── speech2.txt
+└── speech3.txt
+Important rules:
 
-Rules:
+Audio files must be .wav (16 kHz is best)
+File names must match exactly (except the extension)
+Inside each .txt file, write only the spoken words, preferably in UPPERCASE and no punctuation
 
-Audio files must be .wav (16 kHz recommended).
+Example content of speech1.txt:
+IIITH THANK YOU VERY MUCH
+Running Alignment
+In your terminal, after activating the environment (conda activate mfa-test), type:
+mfa align dataset/ english_us_arpa english_us_arpa aligned_output/ --clean
+Explanation of the command:
 
-Each .txt file must have the exact same filename as its corresponding .wav.
+dataset/ → folder that contains wavs/ and texts/
+english_us_arpa → acoustic model
+english_us_arpa → dictionary
+aligned_output/ → where results will be saved
+--clean → deletes temporary files automatically
 
-Transcriptions should be plain text, no punctuation (optional: lowercase for consistency).
-
-Example:
-
-wavs/file1.wav ↔ texts/file1.txt containing:
-
-IIITH THANK YOU 
-## Running Alignment
-1.Basic alignment command
-
-(mfa-test) C:\Users\YourName> mfa align dataset/ english_us_arpa english_us_arpa aligned_output/
-
-
-dataset/ – path to your dataset
-
-english_us_arpa – acoustic model
-
-english_us_arpa – dictionary
-
-aligned_output/ – output directory
-
-2.Check the results
-
-The output folder will contain:
-
-.TextGrid files for each audio file – compatible with Praat
-
-Log files indicating alignment progress
-# Example Workflow
-Activate environment
-
-   conda activate mfa-test
-
- Download models
-
+Wait a few seconds/minutes (depends on number of files).
+Example Commands & Expected Output
+Full example session:
+conda activate mfa-test
 mfa model download acoustic english_us_arpa
-
 mfa model download dictionary english_us_arpa
-
-Run alignment
-
-mfa align dataset/ english_us_arpa english_us_arpa aligned_output/
-## Expected output:
+mfa align dataset/ english_us_arpa english_us_arpa aligned_output/ --clean
+You will see progress like:
 Aligning files...
+100%|██████████| 25/25 [00:18<00:00,  1.38it/s]
+Alignment complete!
+Results saved in aligned_output/
+Now check the aligned_output/ folder — you’ll find one .TextGrid file for every .wav file.
+Viewing Results in Praat
 
-file1.wav -> file1.TextGrid
+Download Praat (free): https://www.fon.hum.uva.nl/praat/
+Open Praat
+Click Open → Read from file… → choose any .wav file
+Again Open → Read from file… → choose the matching .TextGrid file
+Select both files in the list (hold Ctrl)
+Click View & Edit
+Magic! You now see:
 
-file2.wav -> file2.TextGrid
-
-Alignment complete. Results saved in aligned_output/
-
-## Demo
-
-Insert gif or link to demo
+Blue waveform
+Top tier: word boundaries
+Bottom tier: phoneme boundaries
+Press Play to hear with perfect sync
 
 
-## Screenshots
+Zoom with Tab key, select portions, edit boundaries if needed.
+Common Issues & Fixes
+
+ProblemSolution"No such file or directory"Double-check folder path and file names match exactly"Dictionary not found"Re-run the two model download commandsNo TextGrid files appearFirst run mfa validate dataset/ english_us_arpa english_us_arpaAlignment looks offAdd --beam 100 --retry_beam 400 to the align commandAudio not .wavConvert using ffmpeg or Audacity first
+Demo
+
+Screenshots
 
 
+Terminal showing successful alignment
+Folder structure before/after
+Praat window with clear word and phoneme layers
 
+Final Folder Structure After Running
+dataset/
+├── wavs/
+│   ├── speech1.wav
+│   └── speech2.wav
+├── texts/
+│   ├── speech1.txt
+│   └── speech2.txt
+└── aligned_output/
+├── speech1.TextGrid
+└── speech2.TextGrid
+Author
+venkata siva ch
+Tools Used
+
+Montreal Forced Aligner (latest v3+)
+Praat (v6.4+)
+Conda environment: mfa-test
+
+Assignment completed 100% successfully!
