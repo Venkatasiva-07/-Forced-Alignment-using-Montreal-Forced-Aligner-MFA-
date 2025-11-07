@@ -1,7 +1,7 @@
 # Forced Alignment using Montreal Forced Aligner (MFA)
 
 > A complete step-by-step guide for running forced alignment using the **Montreal Forced Aligner (MFA)**.  
-> This repository demonstrates how to install MFA, prepare your dataset, run alignment, and inspect `.TextGrid` outputs.
+> This repository demonstrates how to install MFA, prepare your dataset, run alignment, and inspect `.TextGrid` outputs..
 
 ---
 
