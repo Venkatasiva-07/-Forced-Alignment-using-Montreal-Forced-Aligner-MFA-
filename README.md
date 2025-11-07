@@ -32,14 +32,14 @@
    ```bash
    conda activate base
 
-3.Create new conda environment
+3. Create new conda environment
   ```bash
   Create new conda environment
   conda activate mfa-test
-4.Install MFA from conda-forge
+4. Install MFA from conda-forge
   ```bash
   conda install -c conda-forge montreal-forced-aligner kalpy kaldi=*=cpu* -y
-5.Check MFA version
+5. Check MFA version
  ```bash
  mfa --version
 # Example output: 3.3.8
