@@ -1,11 +1,6 @@
 # -Forced-Alignment-using-Montreal-Forced-Aligner-MFA-
  forced alignment pipeline using the Montreal Forced  Aligner (MFA) tool
 
-
-# Forced Alignment using Montreal Forced Aligner (MFA)
-
-# Montreal Forced Aligner (MFA) Alignment Guide
-
 This repository provides step-by-step instructions to install the **Montreal Forced Aligner (MFA)**, prepare your dataset, and run audio-text alignments. It includes example commands and expected outputs to help you get started quickly with speech alignment projects.
 
 
